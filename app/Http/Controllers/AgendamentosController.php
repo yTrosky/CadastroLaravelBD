@@ -7,11 +7,11 @@ use App\Models\Agendamentos;
 
 class AgendamentosController extends Controller
 {
-    // Método post para validar e enviar os dados
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            // Variável para armazenar os dados enviados pelos campos
+
             'nome' => 'required|max:255',
             'telefone' => 'required|max:20',
             'origem' => 'required|max:255',
@@ -20,7 +20,7 @@ class AgendamentosController extends Controller
 
         ]);
 
-            // Enviando os dados para o banco de dados
+
         $agendamento = new Agendamentos();
         $agendamento->nome = $request->nome;
         $agendamento->telefone = $request->telefone;
@@ -29,18 +29,38 @@ class AgendamentosController extends Controller
         $agendamento->observacao = $request->observacao;
         $agendamento->save();
 
-            // Retornando para o formulário de cadastro
         return redirect()->route('index')
             ->with('success', 'Agendamento criado com sucesso!');
     }
 
-    // Método get para mostrar os dados na tabela
     public function show(){
 
-        // Recupera todos os agendamentos do banco de dados
         $tableagenda = Agendamentos::all();
-        
-        // Retorna a view 'consultar' com os agendamentos recuperados
+
         return view('consulta', ['agendamentos' => $tableagenda]);
+    }
+
+    public function destroy($id)
+    {
+
+        Agendamentos::find($id)->delete();
+
+        return redirect('consulta');
+    }
+
+    public function edit($id)
+    {
+
+        $agendamento = Agendamentos::find($id);
+
+        return view('editar', ['agendamento' => $agendamento]);
+    }
+
+    public function update(Request $request)
+    {
+ 
+        Agendamentos::findOrFail($request->id)->update($request->all());
+
+        return redirect('consulta');
     }
 }

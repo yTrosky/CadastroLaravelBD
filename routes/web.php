@@ -13,13 +13,16 @@ use App\Http\Controllers\AgendamentosController;
 |
 */
 
-// Rota para enviar um método para o AgendamentosController para fazer o método post
 Route::post('/cadastrar', [AgendamentosController::class, 'store'])->name('agendamentos.store');
 
-// Rota para acessar a página de cadastrar
 Route::get('/', function () {
     return view('index');
 })->name('index');
 
-// Rota para enviar um método para o AgendamentosController para fazer o método get para a tabela
 Route::get('/consulta', [AgendamentosController::class, 'show'])->name('agendamentos.show');
+
+Route::delete('/excluir/{id}', [AgendamentosController::class, 'destroy'])->name('agendamentos.destroy');
+
+Route::get('/editar{id}', [AgendamentosController::class, 'edit'])->name('agendamentos.edit');
+
+Route::put('/atualizar/{id}', [AgendamentosController::class, 'update'])->name('agendamentos.update');
