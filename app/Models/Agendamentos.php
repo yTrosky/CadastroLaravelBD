@@ -14,7 +14,7 @@ class Agendamentos extends Model
      *
      * @var array<int, string>
      */
-    // Criando os campos para o banco de dados
+    
     protected $fillable = [
         'nome',
         'telefone',
