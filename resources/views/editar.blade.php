@@ -75,8 +75,9 @@
                 </nav>
             </div>
         </div>
-        <form class="row g-3" method="POST" id="form" action="{{route('agendamentos.store')}}" nome="form">
-            @csrf
+        <form class="row g-3" method="POST" id="form" action="/atualizar/{{ $agendamento->id }}" nome="form">
+                        @csrf
+                        @method('PUT')
         <h3>Cadastrar - Agendamentos de Potenciais Clientes</h1>
         <h5>Sistema utilizado para agendamento de serviços</h5>
 
@@ -90,28 +91,29 @@
                         
                     <div class="form-row">    
                         <label for="validationCustom01">Nome</label>
-                        <input type="text" name="nome" class="form-control" id="validationCustom01" placeholder="Nome Completo" required>
+                        <input value="{{ $agendamento->nome }}" type="text" name="nome" class="form-control" id="validationCustom01" placeholder="Nome Completo" required>
+
                     </div>
 
                     <div>
                         <label for="validationCustom02">Telefone:</label>
-                        <input type="tel" name="telefone" class="form-control" id="validationCustom02" placeholder="(xx) xxxxx-xxxx"  required>
+                        <input value="{{ $agendamento->telefone }}" type="tel" name="telefone" class="form-control" id="validationCustom02" placeholder="(xx) xxxxx-xxxx"  required>
                     </div>
 
                     <div>
                             <label for="inputState" class="form-label">Origem</label>
                             <select class="form-select" name="origem" id="inlineFormCustomSelect" required>
-                                <option selected value="Celular">Celular</option>
-                                <option value="Telefone Fixo">Telefone Fixo</option>
-                                <option value="Celular/Telefone Móvel">Celular/Telefone Móvel</option>
-                                <option value="Ramal">Ramal</option>
-                                <option value="Whatsapp">Whatsapp</option>
-                                <option value="Telegram">Telegram</option>
-                                <option value="Facebook">Facebook</option>
+                            <option {{ $agendamento->origem == "Celular" ? 'selected="selected"' : '' }} value="Celular">Celular</option>
+                                <option {{ $agendamento->origem == "Telefone Fixo" ? 'selected="selected"' : '' }} value="Telefone Fixo">Telefone Fixo</option>
+                                <option {{ $agendamento->origem == "Celular/Telefone Móvel" ? 'selected="selected"' : '' }} value="Celular/Telefone Móvel">Celular/Telefone Móvel</option>
+                                <option {{ $agendamento->origem == "Ramal" ? 'selected="selected"' : '' }} value="Ramal">Ramal</option>
+                                <option {{ $agendamento->origem == "Whatsapp" ? 'selected="selected"' : '' }} value="Whatsapp">Whatsapp</option>
+                                <option {{ $agendamento->origem == "Telegram" ? 'selected="selected"' : '' }} value="Telegram">Telegram</option>
+                                <option {{ $agendamento->origem == "Facebook" ? 'selected="selected"' : '' }} value="Facebook">Facebook</option>
                             </select>     
                     </div>
                         <label for="validationCustom03">Data do Contato:</label>
-                        <input type="date" name="contato" class="form-control" id="validationCustom03" placeholder="dd/mm/aaaa" required>
+                        <input value="{{ $agendamento->data_contato }}" type="date" name="data_contato" class="form-control" id="validationCustom03" placeholder="dd/mm/aaaa" required></input>
                     </div>
 
                     <div class="form-group">
